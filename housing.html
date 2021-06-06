@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>D3.js Key Concepts</title>
+
+	<style type="text/css">
+		body {
+			background-color: #ccc;
+			width: 100%;
+		}
+		#chart {
+			background-color: #bbb;
+			width: 1000px;
+			height: 500px;
+			margin: 50px auto;
+			border: solid 1px #000;
+		}
+
+		svg{
+			background-color: #FFF;
+		}
+	</style>
+
+	<script type="text/javascript" src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+
+	<div id="chart"></div>
+
+	<script type="text/javascript">
+		var width = 1000, height=2500;
+
+		var svg = d3.select('#chart')
+				.append('svg')
+				.attr('width', width + 'px')
+				.attr('height', height + 'px');
+
+		d3.csv('BostonHousing.csv').then(function(data){
+			console.log(data);
+		});
+
+	</script>
+</body>
+</html>
