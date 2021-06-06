@@ -69,11 +69,11 @@
 
 			xScale = d3.scaleLinear()
 				.domain(xMinMax)
-				.range([margin+rValues[1],width-margin]-rValues[1]);
+				.range([margin,width-margin]);
 
 			yScale = d3.scaleLinear()
 				.domain(yMinMax)
-				.range([height-margin-rValues[1],margin+rValues[1]]);
+				.range([height-margin,margin]);
 
 
 			rScale = d3.scaleLinear()
