@@ -114,8 +114,10 @@
 					.attr('id', 'xAxis')
 					.attr('class', 'axis');
 
+				xPosition = height-margin;
+
 				xAxisG.call(xAxis)
-					.attr('transform', 'translate(0,'+ (height-margin) + ')');
+					.attr('transform', 'translate(0,' + xPosition + ')');
 
 				
 				yAxisG = svg.append('g')
