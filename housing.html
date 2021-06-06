@@ -21,8 +21,14 @@
 			background-color: #FFF;
 		}
 		.dot{
-			stroke: '#000';
+			stroke: #000;
 			stroke-width: 1px;
+		}
+		.axis line, .axis path{
+			stroke: #bbb;
+		}
+		.axis text {
+			fill: #bbb;
 		}
 	</style>
 
@@ -33,7 +39,7 @@
 	<div id="chart"></div>
 
 	<script type="text/javascript">
-		var margin=30, width = 1000, height=500;
+		var margin=30, width = 1000, height=500, rValues = [2,15];
 		var circles, xScale, yScale;
 
 
@@ -63,11 +69,11 @@
 
 			xScale = d3.scaleLinear()
 				.domain(xMinMax)
-				.range([margin,width-margin]);
+				.range([margin+rValues[1],width-margin]-rValues[1]);
 
 			yScale = d3.scaleLinear()
 				.domain(yMinMax)
-				.range([height-margin,margin]);
+				.range([height-margin-rValues[1],margin+rValues[1]]);
 
 
 			rScale = d3.scaleLinear()
@@ -99,6 +105,26 @@
 				.style('opacity', function(d){
 					return d.charles == 1 ? 1:0.5;
 				});
+
+				xAxis = d3.axisBottom(xScale).tickValues(xMinMax);
+				yAxis = d3.axisLeft(yScale).tickValues(yMinMax);
+
+
+				xAxisG = svg.append('g')
+					.attr('id', 'xAxis')
+					.attr('class', 'axis');
+
+				xAxisG.call(xAxis)
+					.attr('transform', 'translate(0,'+ (height-margin) + ')');
+
+				
+				yAxisG = svg.append('g')
+					.attr('id', 'yAxis')
+					.attr('class', 'axis');
+
+				yAxisG.call(yAxis)
+					.attr('transform', 'translate(' + margin + ',0)');
+
 		});
 
 	</script>
