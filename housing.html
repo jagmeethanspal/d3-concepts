@@ -117,11 +117,13 @@
 					return d.charles == 1 ? 1:0.5;
 				})
 				.on('mouseover', function(d){
-					html = d.poor;
+					var info = d.poor;
+					var pageX = d3.event.pageX;
+					var pageY = d3.event.pageY;
 					d3.select('#tooltip')
-						.html(html)
-						.style('left', 100 + 'px')
-						.style('top', 100 + 'px')
+						.html(info)
+						.style('left', (pageX - 100) + 'px')
+						.style('top', (pageY - 100) + 'px')
 						.style('opacity', 0.5);
 				})
 				.on('mouseout', function(d){
