@@ -34,7 +34,8 @@
 
 	<script type="text/javascript">
 		var margin=30, width = 1000, height=500;
-		var circles;
+		var circles, xScale, yScale;
+
 
 		var svg = d3.select('#chart')
 				.append('svg')
@@ -43,6 +44,10 @@
 
 		d3.csv('boston-housing.csv').then(function(data){
 			//console.log(data);
+
+			data=data.sort(function(a,b){
+				return a.charles - b.charles;
+			});
 
 			xMinMax = d3.extent(data,function(d){
 				return parseFloat(d.poor);
@@ -69,6 +74,10 @@
 				.domain(rMinMax)
 				.range([2, 10]);
 
+			cScale = d3.scaleOrdinal()
+				.domain([0,1])
+				.range(['#333','#FF6600'])
+
 
 			circles = svg.selectAll('.dot')
 				.data(data)
@@ -84,8 +93,12 @@
 				.attr('r', function(d){
 					return rScale(d.value);
 				})
-				.attr('fill', '#000')
-				.style('opacity', 0.5);
+				.attr('fill', function(d){
+					return cScale(d.charles);
+				})
+				.style('opacity', function(d){
+					return d.charles == 1 ? 1:0.5;
+				});
 		});
 
 	</script>
