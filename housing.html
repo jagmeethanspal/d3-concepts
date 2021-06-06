@@ -30,6 +30,13 @@
 		.axis text {
 			fill: #bbb;
 		}
+		#tooltip {
+			position: absolute;
+			background-color: #FFF;
+			padding: 20px;
+			border: solid 1px #000;
+			opacity: 0;
+		}
 	</style>
 
 	<script type="text/javascript" src="https://d3js.org/d3.v6.min.js"></script>
@@ -37,6 +44,7 @@
 <body>
 
 	<div id="chart"></div>
+	<div id="tooltip"></div>
 
 	<script type="text/javascript">
 		var margin=30, width = 1000, height=500, gMargin = 15;
@@ -102,6 +110,19 @@
 				})
 				.style('opacity', function(d){
 					return d.charles == 1 ? 1:0.5;
+				})
+				.on('mouseover', function(d){
+					info = d.poor;
+					d3.select('#tooltip')
+						.html(info)
+						.style('left', d3.event.pageX-100)
+						.style('top', d3.event.pageY-100)
+						.style('opacity', 0.5);
+				})
+				.on('mouseout', function(d){
+					d3.select('#tooltip')
+						.style('left', -1000)
+						.style('opacity', 0);
 				});
 
             	xAxis = d3.axisBottom(xScale).tickValues([xMinMax[0],xMinMax[1]]);
