@@ -45,15 +45,15 @@
 			//console.log(data);
 
 			xMinMax = d3.extent(data,function(d){
-				return parserFloat(d.poor);
+				return parseFloat(d.poor);
 			});
 
 			yMinMax = d3.extent(data,function(d){
-				return parserFloat(d.rooms);
+				return parseFloat(d.rooms);
 			});
 
 			rMinMax = d3.extent(data,function(d){
-				return parserFloat(d.value);
+				return parseFloat(d.value);
 			});
 
 			xScale = d3.scaleLinear()
@@ -62,7 +62,7 @@
 
 			yScale = d3.scaleLinear()
 				.domain(yMinMax)
-				.range([margin,height-margin]);
+				.range([height-margin,margin]);
 
 
 			rScale = d3.scaleLinear()
