@@ -39,7 +39,7 @@
 	<div id="chart"></div>
 
 	<script type="text/javascript">
-		var margin=30, width = 1000, height=500, rValues = [2,15];
+		var margin=30, width = 1000, height=500, gMargin = 15;
 		var circles, xScale, yScale;
 
 
@@ -69,11 +69,11 @@
 
 			xScale = d3.scaleLinear()
 				.domain(xMinMax)
-				.range([margin,width-margin]);
+				.range([margin+gMargin,width-margin-gMargin]);
 
 			yScale = d3.scaleLinear()
 				.domain(yMinMax)
-				.range([height-margin,margin]);
+				.range([height-margin-gMargin,margin+gMargin]);
 
 
 			rScale = d3.scaleLinear()
