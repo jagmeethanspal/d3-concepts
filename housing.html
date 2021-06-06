@@ -106,25 +106,24 @@
 					return d.charles == 1 ? 1:0.5;
 				});
 
-				xAxis = d3.axisBottom(xScale).tickValues(xMinMax);
-				yAxis = d3.axisLeft(yScale).tickValues(yMinMax);
+            	xAxis = d3.axisBottom(xScale).tickValues([xMinMax[0],xMinMax[1]]);
+            	yAxis = d3.axisLeft(yScale).tickValues([yMinMax[0],yMinMax[1]]);
 
 
-				xAxisG = svg.append('g')
-					.attr('id', 'xAxis')
-					.attr('class', 'axis');
+	            xAxisG = svg.append('g')
+	                .attr('id', 'xAxis')
+	                .attr('class', 'axis');
+
+	            xAxisG.call(xAxis)
+	                .attr('transform', 'translate(0,' + (height-margin) + ')');
 
 
-				xAxisG.call(xAxis)
-					.attr('transform', 'translate(0,970)');
+	            yAxisG = svg.append('g')
+	                .attr('id', 'yAxis')
+	                .attr('class', 'axis');
 
-				
-				yAxisG = svg.append('g')
-					.attr('id', 'yAxis')
-					.attr('class', 'axis');
-
-				yAxisG.call(yAxis)
-					.attr('transform', 'translate(' + margin + ',0)');
+	            yAxisG.call(yAxis)
+	                .attr('transform', 'translate(' + margin + ',0)');
 
 		});
 
