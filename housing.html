@@ -33,7 +33,7 @@
 	<div id="chart"></div>
 
 	<script type="text/javascript">
-		var width = 1000, height=2500;
+		var margin=30, width = 1000, height=500;
 		var circles;
 
 		var svg = d3.select('#chart')
@@ -44,19 +44,45 @@
 		d3.csv('boston-housing.csv').then(function(data){
 			//console.log(data);
 
+			xMinMax = d3.extent(data,function(d){
+				return parserFloat(d.poor);
+			});
+
+			yMinMax = d3.extent(data,function(d){
+				return parserFloat(d.rooms);
+			});
+
+			rMinMax = d3.extent(data,function(d){
+				return parserFloat(d.value);
+			});
+
+			xScale = d3.scaleLinear()
+				.domain(xMinMax)
+				.range([margin,width-margin]);
+
+			yScale = d3.scaleLinear()
+				.domain(yMinMax)
+				.range([margin,height-margin]);
+
+
+			rScale = d3.scaleLinear()
+				.domain(rMinMax)
+				.range([2, 10]);
+
+
 			circles = svg.selectAll('.dot')
 				.data(data)
 				.enter()
 				.append('circle')
 				.attr('class', 'dot')
 				.attr('cx', function(d){
-					return d.poor*30;
+					return xScale(d.poor);
 				})
 				.attr('cy', function(d){
-					return d.rooms*50;
+					return yScale(d.rooms);
 				})
 				.attr('r', function(d){
-					return d.value;
+					return rScale(d.value);
 				})
 				.attr('fill', '#000')
 				.style('opacity', 0.5);
