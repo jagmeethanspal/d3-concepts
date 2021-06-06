@@ -116,14 +116,13 @@
 				.style('opacity', function(d){
 					return d.charles == 1 ? 1:0.5;
 				})
-				.on('mouseover', function(d){
+				.on('mouseover', function(event, d){
 					var info = d.poor;
-					var pageX = d3.event.pageX;
-					var pageY = d3.event.pageY;
+					const[x,y] = d3.pointer(event);
 					d3.select('#tooltip')
 						.html(info)
-						.style('left', (pageX - 100) + 'px')
-						.style('top', (pageY - 100) + 'px')
+						.style('left', ((x) - 100) + 'px')
+						.style('top', ((y) - 100) + 'px')
 						.style('opacity', 0.5);
 				})
 				.on('mouseout', function(d){
