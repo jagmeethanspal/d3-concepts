@@ -30,6 +30,7 @@
 
 	<script type="text/javascript">
 		var width = 1000, height=2500;
+		var circles;
 
 		var svg = d3.select('#chart')
 				.append('svg')
@@ -39,14 +40,18 @@
 		d3.csv('BostonHousing.csv').then(function(data){
 			//console.log(data);
 
-			svg.selectAll('.dot')
+			circles = svg.selectAll('.dot')
 				.data(data)
 				.enter()
 				.append('circle')
-				.attr('cx', 100)
+				.attr('class', 'dot')
+				.attr('cx', function(d){
+					return d.poor;
+				})
 				.attr('cy', 100)
 				.attr('r', 5)
-				.attr('fill', '#000');
+				.attr('fill', '#000')
+				.style('opacity', 0.5);
 		});
 
 	</script>
