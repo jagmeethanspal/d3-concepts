@@ -46,9 +46,11 @@
 				.append('circle')
 				.attr('class', 'dot')
 				.attr('cx', function(d){
-					return d.age;
+					return d.age*10;
 				})
-				.attr('cy', 100)
+				.attr('cy', function(d){
+					return d.tax;
+				})
 				.attr('r', 5)
 				.attr('fill', '#000')
 				.style('opacity', 0.5);
