@@ -53,7 +53,7 @@
 
 	<script type="text/javascript">
 		var margin=30, width = 1000, height=500, gMargin = 15;
-		var circles, xScale, yScale;
+		var lines, xScale, yScale;
 
 
 		var svg = d3.select('#chart')
@@ -85,6 +85,7 @@
 				.enter()
 				.append('line')
 				.attr('class', 'dot')
+				.style('opacity', 0.3)
 				.attr('x1', 100)
 				.attr('y1', function(d){
 					console.log(d.t1);
@@ -95,6 +96,8 @@
 					console.log(d.t2);
 					return t2Scale(d.t2);
 				});
+
+				update();
 				
 /*
 			data=data.sort(function(a,b){
@@ -203,17 +206,17 @@
 
 		});
 
-/*
+
 		function update() {
-			circles.transition()
+			lines.transition()
 				.delay(function(d,i){
 					return (i*10);
 				})
-				.attr('r', function(d){
+				/*.attr('r', function(d){
 					return rScale(d.value);
-				})
+				})*/
 		}
-*/
+
 	</script>
 </body>
 </html>
