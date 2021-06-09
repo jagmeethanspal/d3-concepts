@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-small.csv').then(function(data){
-			console.log("tScale");
+			console.log("tScale array fix");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -75,8 +75,8 @@
 
 
 			tScale = d3.scaleLinear()
-				.domain(t1MinMax[0]<t2MinMax[0]?t1MinMax[0]:t2MinMax[0],
-					t1MinMax[1]>t2MinMax[1]?t1MinMax[1]:t2MinMax[1])
+				.domain([t1MinMax[0]<t2MinMax[0]?t1MinMax[0]:t2MinMax[0],
+					t1MinMax[1]>t2MinMax[1]?t1MinMax[1]:t2MinMax[1]])
 				.range([0, height-margin])
 
 			lines = svg.selectAll('.dot')
