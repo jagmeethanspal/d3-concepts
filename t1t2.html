@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2.csv').then(function(data){
-			console.log("10 tick values");
+			console.log("T1 timeline");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -103,7 +103,7 @@
 	                .attr('class', 'axis');
 
 	            yAxisG.call(yAxis)
-	                .attr('transform', 'translate(' + margin + ',0)');
+	                .attr('transform', 'translate(100,0)');
 
 				update();
 				
