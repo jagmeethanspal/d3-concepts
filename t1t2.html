@@ -85,16 +85,14 @@
 				.enter()
 				.append('line')
 				.attr('class', 'dot')
-				.attr('x1', function(d){
-					return 100;
-				})
+				.attr('x1', 100)
 				.attr('y1', function(d){
+					console.log(d.t1);
 					return t1Scale(d.t1);
 				})
-				.attr('x2', function(d){
-					return 200;
-				})
+				.attr('x2', 200)
 				.attr('y2', function(d){
+					console.log(d.t2);
 					return t2Scale(d.t2);
 				});
 				
