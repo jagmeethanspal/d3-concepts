@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2.csv').then(function(data){
-			console.log("Axis");
+			console.log("Ticks");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -97,7 +97,7 @@
 					return tScale(d.t1);
 				});
 
-				yAxis = d3.axisLeft(tScale).tickValues();
+				yAxis = d3.axisLeft(tScale).ticks();
 				yAxisG = svg.append('g')
 	                .attr('id', 'yAxis')
 	                .attr('class', 'axis');
