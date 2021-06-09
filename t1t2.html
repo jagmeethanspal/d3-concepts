@@ -53,7 +53,7 @@
 
 	<script type="text/javascript">
 		var margin=30, width = 1000, height=500, gMargin = 15;
-		var lines, timeScale;
+		var lines, tScale;
 
 
 		var svg = d3.select('#chart')
@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2.csv').then(function(data){
-			console.log("Ticks");
+			console.log("T1 scale");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -97,7 +97,7 @@
 					return tScale(d.t1);
 				});
 
-				yAxis = d3.axisLeft(tScale).ticks();
+				yAxis = d3.axisLeft(tScale).ticks(t1MinMax);
 				yAxisG = svg.append('g')
 	                .attr('id', 'yAxis')
 	                .attr('class', 'axis');
