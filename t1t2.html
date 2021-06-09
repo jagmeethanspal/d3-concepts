@@ -61,8 +61,8 @@
 				.attr('width', width + 'px')
 				.attr('height', height + 'px');
 
-		d3.csv('t1t2.csv').then(function(data){
-			console.log("Slow transition");
+		d3.csv('t1t2-small.csv').then(function(data){
+			console.log("Small file");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -210,7 +210,8 @@
 		function update() {
 			lines.transition()
 				.delay(function(d,i){
-					return (d.t2-d.t1)*10000*i;
+					//return (d.t2-d.t1)*10000*i;
+					return i*1000;
 				})
 				.attr('x2', 200)
 				.attr('y2', function(d){
