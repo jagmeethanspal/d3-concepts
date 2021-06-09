@@ -62,6 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2.csv').then(function(data){
+			console.log("Delay Experiment");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -91,8 +92,10 @@
 					//console.log(d.t1);
 					return t1Scale(d.t1);
 				})
-				.attr('x2', 0)
-				.attr('y2', 0);
+				.attr('x2', 100)
+				.attr('y2', function(d){
+					return t1Scale(d.t1);
+				});
 
 				update();
 				
@@ -207,7 +210,7 @@
 		function update() {
 			lines.transition()
 				.delay(function(d,i){
-					return i*10;
+					return (d1.t2-d1.t1)*1000;
 				})
 				.attr('x2', 200)
 				.attr('y2', function(d){
