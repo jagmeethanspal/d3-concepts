@@ -61,8 +61,8 @@
 				.attr('width', width + 'px')
 				.attr('height', height + 'px');
 
-		d3.csv('t1t2-small.csv').then(function(data){
-			console.log("Margin and very small data");
+		d3.csv('t1t2-micro.csv').then(function(data){
+			console.log("Micro data");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
