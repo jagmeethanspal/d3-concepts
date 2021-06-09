@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-small.csv').then(function(data){
-			console.log("TimeScale");
+			console.log("tScale");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -74,7 +74,7 @@
 			});
 
 
-			timeScale = d3.scaleLinear()
+			tScale = d3.scaleLinear()
 				.domain(t1MinMax[0]<t2MinMax[0]?t1MinMax[0]:t2MinMax[0],
 					t1MinMax[1]>t2MinMax[1]?t1MinMax[1]:t2MinMax[1])
 				.range([0, height-margin])
@@ -88,11 +88,11 @@
 				.attr('x1', 100)
 				.attr('y1', function(d){
 					//console.log(d.t1);
-					return timeScale(d.t1);
+					return tScale(d.t1);
 				})
 				.attr('x2', 100)
 				.attr('y2', function(d){
-					return timeScale(d.t1);
+					return tScale(d.t1);
 				});
 
 				update();
@@ -213,7 +213,7 @@
 				})
 				.attr('x2', 200)
 				.attr('y2', function(d){
-					return timeScale(d.t2);
+					return tScale(d.t2);
 				})
 		}
 
