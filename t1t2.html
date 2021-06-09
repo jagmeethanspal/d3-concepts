@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>PTP Synchronization</title>
+
+	<style type="text/css">
+		body {
+			background-color: #ccc;
+			width: 100%;
+		}
+		#chart {
+			background-color: #bbb;
+			width: 1000px;
+			height: 500px;
+			margin: 50px auto;
+			border: solid 1px #000;
+		}
+
+		svg{
+			background-color: #FFF;
+		}
+		.dot{
+			stroke: #000;
+			stroke-width: 1px;
+		}
+		.axis line, .axis path{
+			stroke: #bbb;
+		}
+		.axis text {
+			fill: #bbb;
+		}
+		#tooltip {
+			position: absolute;
+			background-color: #FFF;
+			padding: 20px;
+			border: solid 1px #000;
+			opacity: 0;
+		}
+		.axislabel{
+			fill: #bbb;
+			font: sans-serif;
+			font-size: 10px;
+		}
+	</style>
+
+	<script type="text/javascript" src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+
+	<div id="chart"></div>
+	<div id="tooltip"></div>
+
+	<script type="text/javascript">
+		var margin=30, width = 1000, height=500, gMargin = 15;
+		var circles, xScale, yScale;
+
+
+		var svg = d3.select('#chart')
+				.append('svg')
+				.attr('width', width + 'px')
+				.attr('height', height + 'px');
+
+		d3.csv('t1t2.csv').then(function(data){
+			console.log(data);
+/*
+			data=data.sort(function(a,b){
+				return a.charles - b.charles;
+			});
+
+			xMinMax = d3.extent(data,function(d){
+				return parseFloat(d.poor);
+			});
+
+			yMinMax = d3.extent(data,function(d){
+				return parseFloat(d.rooms);
+			});
+
+			rMinMax = d3.extent(data,function(d){
+				return parseFloat(d.value);
+			});
+
+			xScale = d3.scaleLinear()
+				.domain(xMinMax)
+				.range([width-margin-gMargin, margin+gMargin]);
+
+			yScale = d3.scaleLinear()
+				.domain(yMinMax)
+				.range([height-margin-gMargin,margin+gMargin]);
+
+
+			rScale = d3.scaleLinear()
+				.domain(rMinMax)
+				.range([2, 10]);
+
+			cScale = d3.scaleOrdinal()
+				.domain([0,1])
+				.range(['#333','#FF6600'])
+
+
+			circles = svg.selectAll('.dot')
+				.data(data)
+				.enter()
+				.append('circle')
+				.attr('class', 'dot')
+				.attr('cx', function(d){
+					return xScale(d.poor);
+				})
+				.attr('cy', function(d){
+					return yScale(d.rooms);
+				})
+				.attr('r', 0)
+				.attr('fill', function(d){
+					return cScale(d.charles);
+				})
+				.style('opacity', function(d){
+					return d.charles == 1 ? 1:0.5;
+				})
+				.on('mouseover', function(event, d){
+					var info = d.poor;
+					const[x,y] = d3.pointer(event);
+					d3.select('#tooltip')
+						.html(info)
+						.style('left', ((x) - 100) + 'px')
+						.style('top', ((y) - 100) + 'px')
+						.style('opacity', 0.5);
+				})
+				.on('mouseout', function(d){
+					d3.select('#tooltip')
+						.style('left', -1000)
+						.style('opacity', 0);
+				});
+
+
+            	xAxis = d3.axisBottom(xScale).ticks(0);
+            	yAxis = d3.axisLeft(yScale).tickValues([yMinMax[0],yMinMax[1]]);
+
+
+	            xAxisG = svg.append('g')
+	                .attr('id', 'xAxis')
+	                .attr('class', 'axis');
+
+	            xAxisG.call(xAxis)
+	                .attr('transform', 'translate(0,' + (height-margin) + ')');
+
+
+	            yAxisG = svg.append('g')
+	                .attr('id', 'yAxis')
+	                .attr('class', 'axis');
+
+	            yAxisG.call(yAxis)
+	                .attr('transform', 'translate(' + margin + ',0)');
+
+	            svg.append('text')
+	            	.attr('x', xScale(xMinMax[0]))
+	            	.attr('y', yScale(yMinMax[0]) + margin)
+	            	.attr('text-anchor', 'middle')
+	            	.text('More Wealthy')
+	            	.attr('class', 'axislabel');
+
+	            svg.append('text')
+	            	.attr('x', xScale(xMinMax[1]))
+	            	.attr('y', yScale(yMinMax[0]) + margin)
+	            	.attr('text-anchor', 'middle')
+	            	.text('Less Wealthy')
+	            	.attr('class', 'axislabel');
+
+	            update();
+	            */
+
+		});
+
+/*
+		function update() {
+			circles.transition()
+				.delay(function(d,i){
+					return (i*10);
+				})
+				.attr('r', function(d){
+					return rScale(d.value);
+				})
+		}
+*/
+	</script>
+</body>
+</html>
