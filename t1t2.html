@@ -53,7 +53,7 @@
 
 	<script type="text/javascript">
 		var margin=30, width = 1000, height=500, gMargin = 15;
-		var lines, t1Scale, t2Scale;
+		var lines, timeScale;
 
 
 		var svg = d3.select('#chart')
@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-small.csv').then(function(data){
-			console.log("Small file");
+			console.log("TimeScale");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -73,28 +73,26 @@
 				return parseFloat(d.t2);
 			});
 
-			t1Scale = d3.scaleLinear()
-				.domain(t1MinMax)
-				.range([0, height]);
 
-			t2Scale = d3.scaleLinear()
-				.domain(t2MinMax)
-				.range([0, height]);
+			timeScale = d3.scaleLinear()
+				.domain(t1MinMax[0]<t2MinMax[0]?t1MinMax[0]:t2MinMax[0],
+					t1MinMax[1]>t2MinMax[1]?t1MinMax[1]:t2MinMax[1])
+				.range([0, height-margin])
 
 			lines = svg.selectAll('.dot')
 				.data(data)
 				.enter()
 				.append('line')
 				.attr('class', 'dot')
-				.style('opacity', 0.1)
+				.style('opacity', 0.3)
 				.attr('x1', 100)
 				.attr('y1', function(d){
 					//console.log(d.t1);
-					return t1Scale(d.t1);
+					return timeScale(d.t1);
 				})
 				.attr('x2', 100)
 				.attr('y2', function(d){
-					return t1Scale(d.t1);
+					return timeScale(d.t1);
 				});
 
 				update();
@@ -215,7 +213,7 @@
 				})
 				.attr('x2', 200)
 				.attr('y2', function(d){
-					return t2Scale(d.t2);
+					return timeScale(d.t2);
 				})
 		}
 
