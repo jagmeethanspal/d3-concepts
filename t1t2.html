@@ -53,7 +53,7 @@
 
 	<script type="text/javascript">
 		var margin=30, width = 1000, height=500, gMargin = 15;
-		var lines, xScale, yScale;
+		var lines, t1Scale, t2Scale;
 
 
 		var svg = d3.select('#chart')
@@ -92,10 +92,7 @@
 					return t1Scale(d.t1);
 				})
 				.attr('x2', 200)
-				.attr('y2', function(d){
-					//console.log(d.t2);
-					return t2Scale(d.t2);
-				});
+				.attr('y2', 0);
 
 				update();
 				
@@ -210,9 +207,9 @@
 		function update() {
 			lines.transition()
 				.delay(100)
-				/*.attr('r', function(d){
-					return rScale(d.value);
-				})*/
+				.attr('y2', function(d){
+					return t2Scale(d.t2);
+				})
 		}
 
 	</script>
