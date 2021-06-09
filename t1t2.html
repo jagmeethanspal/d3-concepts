@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2.csv').then(function(data){
-			console.log("T1 timeline");
+			console.log("Right Axis");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -97,13 +97,22 @@
 					return tScale(d.t1);
 				});
 
-				yAxis = d3.axisLeft(tScale).ticks(10, "+f");
-				yAxisG = svg.append('g')
-	                .attr('id', 'yAxis')
+				lAxis = d3.axisLeft(tScale).ticks(10, "+f");
+				lAxisG = svg.append('g')
+	                .attr('id', 'lAxis')
 	                .attr('class', 'axis');
 
-	            yAxisG.call(yAxis)
+	            lAxisG.call(lAxis)
 	                .attr('transform', 'translate(100,0)');
+
+
+				rAxis = d3.axisRight(tScale).ticks(10, "+f");
+				rAxisG = svg.append('g')
+	                .attr('id', 'rAxis')
+	                .attr('class', 'axis');
+
+	            rAxisG.call(rAxis)
+	                .attr('transform', 'translate(200,0)');
 
 				update();
 				
