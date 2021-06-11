@@ -96,6 +96,12 @@
 					return tScale(d.t1);
 				});
 
+				tScale.domain([minTime, function(d){
+					var newMax = d.t1>d.t2?d.t1:d.t2;
+					maxTime = newMax>maxTime?newMax:maxTime;
+					return maxTime;
+				}
+
 				lAxis = d3.axisLeft(tScale).ticks(10, "+f");
 				lAxisG = svg.append('g')
 	                .attr('id', 'lAxis')
@@ -233,17 +239,6 @@
 				.attr('y2', function(d){
 					return tScale(d.t2);
 				})
-
-			tScale.transition()
-				.delay(function(d,i){
-					return i*100;
-				})
-				.domain([minTime, function(d){
-					var newMax = d.t1>d.t2?d.t1:d.t2;
-					maxTime = newMax>maxTime?newMax:maxTime;
-					return maxTime;
-				}])
-				.range([margin, height-margin])
 		}
 
 	</script>
