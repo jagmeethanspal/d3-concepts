@@ -54,6 +54,7 @@
 	<script type="text/javascript">
 		var margin=30, width = 1000, height=500, gMargin = 15;
 		var lines, tScale, minTime, maxTime;
+		var rAxis, rAxisG, lAxis, lAxisG;
 
 
 		var svg = d3.select('#chart')
@@ -62,7 +63,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-skew.csv').then(function(data){
-			console.log("aScale");
+			console.log("axis out");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -81,10 +82,6 @@
 				.range([margin, height-margin])
 
 
-			aScale = d3.scaleLinear()
-				.domain([minTime, minTime+1])
-				.range([margin, height-margin])
-
 			lines = svg.selectAll('.dot')
 				.data(data)
 				.enter()
@@ -102,24 +99,17 @@
 				});
 
 
-				lAxis = d3.axisLeft(aScale).ticks(10, "+f");
+				lAxis = d3.axisLeft(tScale).ticks(10, "+f");
 				lAxisG = svg.append('g')
 	                .attr('id', 'lAxis')
 	                .attr('class', 'axis');
 
-	            lAxisG.call(lAxis)
-					.transition().duration(2000)
-	                .attr('transform', 'translate(100,0)');
 
 
-				rAxis = d3.axisRight(aScale).ticks(10, "+f");
+				rAxis = d3.axisRight(tScale).ticks(10, "+f");
 				rAxisG = svg.append('g')
 	                .attr('id', 'rAxis')
 	                .attr('class', 'axis');
-
-	            rAxisG.call(rAxis)
-					.transition().duration(200)
-	                .attr('transform', 'translate(200,0)');
 
 				update();
 				
@@ -239,7 +229,16 @@
 				.attr('x2', 200)
 				.attr('y2', function(d){
 					return tScale(d.t2);
-				})
+				});
+	        
+			lAxisG.call(lAxis)
+					.transition().duration(200);
+	                .attr('transform', 'translate(100,0)');
+	        
+			rAxisG.call(rAxis)
+					.transition().duration(2000);
+	                .attr('transform', 'translate(200,0)');
+
 		}
 
 	</script>
