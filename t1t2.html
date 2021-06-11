@@ -63,7 +63,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-skew.csv').then(function(data){
-			console.log("Move axis out");
+			console.log("Into 10");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -219,7 +219,7 @@
 
 		function update() {
 
-			maxTime = maxTime+10;
+			maxTime = maxTime*10;
 
 			tScale 
 				.domain([minTime, maxTime])
