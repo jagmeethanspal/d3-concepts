@@ -63,7 +63,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-skew.csv').then(function(data){
-			console.log("double max");
+			console.log("tScale transition");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -223,27 +223,35 @@
 
 		function update() {
 
+			maxTime = maxTime+10;
+
 			tScale 
-				.domain([minTime, maxTime*2])
+				.domain([minTime, maxTime])
 				.range([margin, height-margin])
 
 			lines.transition()
 				.delay(function(d,i){
 					return i*100;
 				})
+				.attr('x1', 100)
+				.attr('y1', function(d){
+					//console.log(d.t1);
+					return tScale(d.t1);
+				})
 				.attr('x2', 200)
 				.attr('y2', function(d){
 					return tScale(d.t2);
 				});
 	        
-			lAxisG.call(lAxis)
-					.transition().duration(200)
-	                .attr('transform', 'translate(100,0)');
-	        
-			rAxisG.call(rAxis)
-					.transition().duration(2000)
-	                .attr('transform', 'translate(200,0)');
+			lAxisG
+	            .attr('transform', 'translate(100,0)')
+				.transition().duration(1)
+	       		.call(lAxis);
 
+			rAxisG
+                .attr('transform', 'translate(200,0)')
+				.transition().duration(1)
+				.call(rAxis);
 		}
 
 	</script>
