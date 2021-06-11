@@ -63,7 +63,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-skew.csv').then(function(data){
-			console.log("Transition in lines");
+			console.log("Transition in axis");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -114,15 +114,14 @@
 
 		function update() {
 
-			console.log("Min: " + minTime + " Max: " + maxTime);
 
 
 			lines.transition()
 				.delay(function(d,i){
-					return i*100;
+					return i*1000;
 				})
 				.attr('x1', 100)
-				.attr('y1', function(d){
+				.attr('y1', function(d, i){
 					//console.log(d.t1);
 					maxTime = d.t1>maxTime?d.t1:maxTime;
 
@@ -130,22 +129,30 @@
 						.domain([minTime, maxTime])
 						.range([margin, height-margin])
 
+			        console.log("T1 Min: " + minTime + " Max: " + maxTime);
 					lAxisG
 			            .attr('transform', 'translate(100,0)')
+						.transition().delay(function(d,i){
+							return i*1000;
+						})
 			       		.call(lAxis);
 
 					return tScale(d.t1);
 				})
 				.attr('x2', 200)
-				.attr('y2', function(d){
+				.attr('y2', function(d,i){
 					maxTime = d.t2>maxTime?d.t2:maxTime;
 
 					tScale 
 						.domain([minTime, maxTime])
 						.range([margin, height-margin])
 
+			        console.log("T2 Min: " + minTime + " Max: " + maxTime);
 					rAxisG
 			            .attr('transform', 'translate(200,0)')
+						.transition().delay(function(d,i){
+							return i*1000;
+						})
 			       		.call(rAxis);
 
 					return tScale(d.t2);
