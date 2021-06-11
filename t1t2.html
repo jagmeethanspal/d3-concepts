@@ -100,7 +100,7 @@
 					var newMax = d.t1>d.t2?d.t1:d.t2;
 					maxTime = newMax>maxTime?newMax:maxTime;
 					return maxTime;
-				}
+				}]);
 
 				lAxis = d3.axisLeft(tScale).ticks(10, "+f");
 				lAxisG = svg.append('g')
