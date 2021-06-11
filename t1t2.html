@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-skew.csv').then(function(data){
-			console.log("Min+10");
+			console.log("aScale");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -74,10 +74,15 @@
 			});
 
 			minTime = t1MinMax[0]<t2MinMax[0]?t1MinMax[0]:t2MinMax[0];
-			maxTime = minTime+10; //t1MinMax[1]>t2MinMax[1]?t1MinMax[1]:t2MinMax[1];
+			maxTime = t1MinMax[1]>t2MinMax[1]?t1MinMax[1]:t2MinMax[1];
 
 			tScale = d3.scaleLinear()
 				.domain([minTime, maxTime])
+				.range([margin, height-margin])
+
+
+			aScale = d3.scaleLinear()
+				.domain([minTime, minTime+1])
 				.range([margin, height-margin])
 
 			lines = svg.selectAll('.dot')
@@ -97,21 +102,23 @@
 				});
 
 
-				lAxis = d3.axisLeft(tScale).ticks(10, "+f");
+				lAxis = d3.axisLeft(aScale).ticks(10, "+f");
 				lAxisG = svg.append('g')
 	                .attr('id', 'lAxis')
 	                .attr('class', 'axis');
 
 	            lAxisG.call(lAxis)
+					.transition().duration(2000)
 	                .attr('transform', 'translate(100,0)');
 
 
-				rAxis = d3.axisRight(tScale).ticks(10, "+f");
+				rAxis = d3.axisRight(aScale).ticks(10, "+f");
 				rAxisG = svg.append('g')
 	                .attr('id', 'rAxis')
 	                .attr('class', 'axis');
 
 	            rAxisG.call(rAxis)
+					.transition().duration(200)
 	                .attr('transform', 'translate(200,0)');
 
 				update();
@@ -233,15 +240,6 @@
 				.attr('y2', function(d){
 					return tScale(d.t2);
 				})
-			tScale.transition()
-				.delay(function(d,i){
-					return i*100;
-				})
-				.domain([minTime, function(d){
-					var newMax = d.t1>d.t2?d.t1:d.t2;
-					maxTime = newMax>maxTime?newMax:maxTime;
-					return maxTime;
-				}]);
 		}
 
 	</script>
