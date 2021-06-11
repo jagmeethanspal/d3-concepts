@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-skew.csv').then(function(data){
-			console.log("Scale animation");
+			console.log("Fix Scale animation");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -227,7 +227,7 @@
 			lines.transition()
 				.delay(function(d,i){
 					//return (d.t2-d.t1)*10000*i;
-					return i*10;
+					return i*100;
 				})
 				.attr('x2', 200)
 				.attr('y2', function(d){
@@ -235,11 +235,15 @@
 				})
 
 			tscale.transition()
+				.delay(function(d,i){
+					return i*100;
+				})
 				.domain([minTime, function(d){
 					var newMax = d.t1>d.t2?d.t1:d.t2;
 					maxTime = newMax>maxTime?newMax:maxTime;
 					return maxTime;
 				}])
+				.range([margin, height-margin])
 		}
 
 	</script>
