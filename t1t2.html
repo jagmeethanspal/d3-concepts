@@ -53,7 +53,7 @@
 
 	<script type="text/javascript">
 		var margin=30, width = 1000, height=500, gMargin = 15;
-		var lines, tScale;
+		var lines, tScale, minTime, maxTime;
 
 
 		var svg = d3.select('#chart')
@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-skew.csv').then(function(data){
-			console.log("Skew");
+			console.log("Scale animation");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -74,8 +74,7 @@
 			});
 
 			minTime = t1MinMax[0]<t2MinMax[0]?t1MinMax[0]:t2MinMax[0];
-			maxTime = t1MinMax[1]>t2MinMax[1]?t1MinMax[1]:t2MinMax[1];
-
+			maxTime = minTime+1; //t1MinMax[1]>t2MinMax[1]?t1MinMax[1]:t2MinMax[1];
 
 			tScale = d3.scaleLinear()
 				.domain([minTime, maxTime])
@@ -234,6 +233,13 @@
 				.attr('y2', function(d){
 					return tScale(d.t2);
 				})
+
+			tscale.transition()
+				.domain([minTime, function(d){
+					var newMax = d.t1>d.t2?d.t1:d.t2;
+					maxTime = newMax>maxTime?newMax:maxTime;
+					return maxTime;
+				}])
 		}
 
 	</script>
