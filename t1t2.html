@@ -62,7 +62,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-skew.csv').then(function(data){
-			console.log("Fix Scale animation");
+			console.log("Min+10");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -74,7 +74,7 @@
 			});
 
 			minTime = t1MinMax[0]<t2MinMax[0]?t1MinMax[0]:t2MinMax[0];
-			maxTime = minTime+1; //t1MinMax[1]>t2MinMax[1]?t1MinMax[1]:t2MinMax[1];
+			maxTime = minTime+10; //t1MinMax[1]>t2MinMax[1]?t1MinMax[1]:t2MinMax[1];
 
 			tScale = d3.scaleLinear()
 				.domain([minTime, maxTime])
