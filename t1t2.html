@@ -63,7 +63,7 @@
 				.attr('height', height + 'px');
 
 		d3.csv('t1t2-skew.csv').then(function(data){
-			console.log("tScale transition");
+			console.log("Move axis out");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -81,6 +81,15 @@
 				.domain([minTime, maxTime])
 				.range([margin, height-margin])
 
+			lAxis = d3.axisLeft(tScale).ticks(10, "+f");
+			lAxisG = svg.append('g')
+                .attr('id', 'lAxis')
+                .attr('class', 'axis');
+
+			rAxis = d3.axisRight(tScale).ticks(10, "+f");
+			rAxisG = svg.append('g')
+	            .attr('id', 'rAxis')
+	   			.attr('class', 'axis');
 
 			lines = svg.selectAll('.dot')
 				.data(data)
@@ -97,19 +106,6 @@
 				.attr('y2', function(d){
 					return tScale(d.t1);
 				});
-
-
-				lAxis = d3.axisLeft(tScale).ticks(10, "+f");
-				lAxisG = svg.append('g')
-	                .attr('id', 'lAxis')
-	                .attr('class', 'axis');
-
-
-
-				rAxis = d3.axisRight(tScale).ticks(10, "+f");
-				rAxisG = svg.append('g')
-	                .attr('id', 'rAxis')
-	                .attr('class', 'axis');
 
 				update();
 				
@@ -245,7 +241,9 @@
 	        
 			lAxisG
 	            .attr('transform', 'translate(100,0)')
-				.transition().duration(1)
+				.transition().delay(function(d,i){
+					return i*100;
+				})
 	       		.call(lAxis);
 
 			rAxisG
