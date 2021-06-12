@@ -111,6 +111,18 @@
 				
 		});
 
+		function reval() {
+
+			lines.transition()
+				.attr('x1', 100)
+				.attr('y1', function(d){
+					return tScale(d.t1);
+				})
+				.attr('x2', 200)
+				.attr('y2', function(d){
+					return tScale(d.t2);
+				})
+		}
 
 		function update() {
 
@@ -125,6 +137,8 @@
 						.range([margin, height-margin])
 
 			        console.log("Min: " + minTime + " Max: " + maxTime);
+
+					//reval();
 					return i*1000;
 				})
 				.attr('x1', 100)
@@ -150,6 +164,8 @@
 
 					return tScale(d.t2);
 				});
+
+				reval();
 	        
 		}
 
