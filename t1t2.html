@@ -54,6 +54,8 @@
 	<script type="text/javascript">
 		var margin=30, width = 1000, height=500, gMargin = 15;
 		var lines, tScale;
+		const lValues = [];
+		const rValues = [];
 
 
 		var svg = d3.select('#chart')
@@ -94,10 +96,13 @@
 				})
 				.attr('x2', 100)
 				.attr('y2', function(d){
+					lValues.push(d.t1);
+					rValues.push(d.t2);
 					return tScale(d.t1);
 				});
 
-				lAxis = d3.axisLeft(tScale).ticks(10, "+f");
+				//lAxis = d3.axisLeft(tScale).ticks(10, "+f");
+				lAxis = d3.axisLeft(tScale).tickValues(lValues);
 				lAxisG = svg.append('g')
 	                .attr('id', 'lAxis')
 	                .attr('class', 'axis');
@@ -106,7 +111,7 @@
 	                .attr('transform', 'translate(100,0)');
 
 
-				rAxis = d3.axisRight(tScale).ticks(10, "+f");
+				rAxis = d3.axisRight(tScale).tickValues(rValues);
 				rAxisG = svg.append('g')
 	                .attr('id', 'rAxis')
 	                .attr('class', 'axis');
@@ -115,112 +120,6 @@
 	                .attr('transform', 'translate(200,0)');
 
 				update();
-				
-/*
-			data=data.sort(function(a,b){
-				return a.charles - b.charles;
-			});
-
-			xMinMax = d3.extent(data,function(d){
-				return parseFloat(d.poor);
-			});
-
-			yMinMax = d3.extent(data,function(d){
-				return parseFloat(d.rooms);
-			});
-
-			rMinMax = d3.extent(data,function(d){
-				return parseFloat(d.value);
-			});
-
-			xScale = d3.scaleLinear()
-				.domain(xMinMax)
-				.range([width-margin-gMargin, margin+gMargin]);
-
-			yScale = d3.scaleLinear()
-				.domain(yMinMax)
-				.range([height-margin-gMargin,margin+gMargin]);
-
-
-			rScale = d3.scaleLinear()
-				.domain(rMinMax)
-				.range([2, 10]);
-
-			cScale = d3.scaleOrdinal()
-				.domain([0,1])
-				.range(['#333','#FF6600'])
-
-
-			circles = svg.selectAll('.dot')
-				.data(data)
-				.enter()
-				.append('circle')
-				.attr('class', 'dot')
-				.attr('cx', function(d){
-					return xScale(d.poor);
-				})
-				.attr('cy', function(d){
-					return yScale(d.rooms);
-				})
-				.attr('r', 0)
-				.attr('fill', function(d){
-					return cScale(d.charles);
-				})
-				.style('opacity', function(d){
-					return d.charles == 1 ? 1:0.5;
-				})
-				.on('mouseover', function(event, d){
-					var info = d.poor;
-					const[x,y] = d3.pointer(event);
-					d3.select('#tooltip')
-						.html(info)
-						.style('left', ((x) - 100) + 'px')
-						.style('top', ((y) - 100) + 'px')
-						.style('opacity', 0.5);
-				})
-				.on('mouseout', function(d){
-					d3.select('#tooltip')
-						.style('left', -1000)
-						.style('opacity', 0);
-				});
-
-
-            	xAxis = d3.axisBottom(xScale).ticks(0);
-            	yAxis = d3.axisLeft(yScale).tickValues([yMinMax[0],yMinMax[1]]);
-
-
-	            xAxisG = svg.append('g')
-	                .attr('id', 'xAxis')
-	                .attr('class', 'axis');
-
-	            xAxisG.call(xAxis)
-	                .attr('transform', 'translate(0,' + (height-margin) + ')');
-
-
-	            yAxisG = svg.append('g')
-	                .attr('id', 'yAxis')
-	                .attr('class', 'axis');
-
-	            yAxisG.call(yAxis)
-	                .attr('transform', 'translate(' + margin + ',0)');
-
-	            svg.append('text')
-	            	.attr('x', xScale(xMinMax[0]))
-	            	.attr('y', yScale(yMinMax[0]) + margin)
-	            	.attr('text-anchor', 'middle')
-	            	.text('More Wealthy')
-	            	.attr('class', 'axislabel');
-
-	            svg.append('text')
-	            	.attr('x', xScale(xMinMax[1]))
-	            	.attr('y', yScale(yMinMax[0]) + margin)
-	            	.attr('text-anchor', 'middle')
-	            	.text('Less Wealthy')
-	            	.attr('class', 'axislabel');
-
-	            update();
-	            */
-
 		});
 
 
