@@ -8,14 +8,29 @@
 
         <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
         <script type="text/javascript">
-            var svgWidth=300, svgHeight=300;
+            var margin = 30;
+            var svgWidth=300-margin*2, svgHeight=300-margin*2;
             var dataset = [1,2,3,2,1];
-            var barWidth = (svgWidth/dataset.length);
+            var barWidth = ((svgWidth-margin)/dataset.length);
             var barPadding = 5;
 
             var yScale = d3.scaleLinear()
                 .domain([0,d3.max(dataset)])
-                .range([0,svgHeight-20])
+                .range([0,svgHeight-margin*2])
+
+            var xScale = d3.scaleLinear()
+                .domain([0,dataset.length])
+                .range([0,svgWidth-margin*2]);
+
+            var xAxis = d3.axisBottom()
+                .scale(xScale);
+            
+            var yAxisScale = d3.scaleLinear()
+                .domain([d3.max(dataset),0])
+                .range([0,svgHeight-margin])
+
+            var yAxis = d3.axisLeft()
+                .scale(yAxisScale);
 
             var svg = d3.select('body')
                 .append('svg')
@@ -32,10 +47,10 @@
                 .attr('height', function(d){
                     return yScale(d);
                 })
-                .attr('width', barWidth - barPadding)
+                .attr('width', barWidth - barPadding - margin/dataset.length)
                 .attr('fill', 'blue')
                 .attr('transform', function(d,i){
-                    var translate = [barWidth*i,0];
+                    var translate = [margin + barWidth*i,0];
                     return 'translate(' + translate + ')'; 
                 });
 
@@ -47,12 +62,21 @@
                     return d;
                 })
                 .attr('y', function(d, i){
-                    return svgHeight - yScale(d) - 2;
+                    return svgHeight - yScale(d) + 20;
                 })
                 .attr('x', function(d,i){
-                    return barWidth*i+barWidth/4;
+                    return margin + barWidth*i;
                 })
                 .attr('fill', 'black');
+
+            svg.append('g')
+                .attr('transform', 'translate(30,30)')
+                .call(yAxis);
+
+            svg.append('g')
+                .attr('transform', 'translate(30,220)')
+                .call(xAxis);
+
         </script>
         
     </body>
