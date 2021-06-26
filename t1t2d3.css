@@ -11,6 +11,13 @@
 			border: solid 1px #000;
 		}
 
+		#chartOffset {
+			background-color: #bbb;
+			width: 800px;
+			height: 400px;
+			margin: 50px auto;
+			border: solid 1px #000;
+		}
 		svg{
 			background-color: #FFF;
 		}

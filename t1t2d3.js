@@ -1,5 +1,6 @@
 
 		var margin=30, width = 800, height=600, gMargin = 15;
+		var offsetChartWidth = 800, offsetChartHeight=400;
 		var lines, tScale;
 		const lValues = [];
 		const rValues = [];
@@ -29,20 +30,23 @@
 		
 			scaleX = d3.scaleLinear()
 				.domain(points)
-				.range([300+margin, width-(margin*2)]);
+				.range([margin, offsetChartWidth-(margin*2)]);
 
 			scaleY = d3.scaleLinear()
 				.domain(values)
-				.range([height-margin, 10*margin]);
+				.range([offsetChartHeight-(margin*2), margin]);
 
-			var svg = d3.select('svg');
+            var svg = d3.select('#chartOffset')
+				.append('svg')
+				.attr('width', offsetChartWidth + 'px')
+				.attr('height', offsetChartHeight + 'px');
 
 			offset.forEach(element => {
 				svg.append('line')
 					.attr('class', 'dot')
 					.style('opacity', 1)
 					.attr('x1', scaleX(element.step))
-					.attr('y1', (height-margin))
+					.attr('y1', (offsetChartHeight-margin))
 					.attr('x2', scaleX(element.step))
 					.attr('y2', scaleY(element.value));
 
@@ -93,12 +97,12 @@
 				.append('line')
 				.attr('class', 'dot')
 				.style('opacity', 0.3)
-				.attr('x1', 100)
+				.attr('x1', margin*3)
 				.attr('y1', function(d){
 					//console.log(d.t1);
 					return tScale(d.t1);
 				})
-				.attr('x2', 100)
+				.attr('x2', margin*3)
 				.attr('y2', function(d){
 					lValues.push(d.t1);
 					rValues.push(d.t2);
@@ -112,7 +116,7 @@
 	                .attr('class', 'axis');
 
 	            lAxisG.call(lAxis)
-	                .attr('transform', 'translate(100,0)');
+	                .attr('transform', 'translate(' + (margin*3) + ',0)');
 
 
 				rAxis = d3.axisRight(tScale).tickValues(rValues);
@@ -121,7 +125,7 @@
 	                .attr('class', 'axis');
 
 	            rAxisG.call(rAxis)
-	                .attr('transform', 'translate(200,0)');
+	                .attr('transform', 'translate(' + (width-(margin*3)) + ',0)');
 
 				update();
 		}
@@ -132,7 +136,7 @@
 					//return (d.t2-d.t1)*10000*i;
 					return i*10;
 				})
-				.attr('x2', 200)
+				.attr('x2', width-(margin*3))
 				.attr('y2', function(d){
 					return tScale(d.t2);
 				})
