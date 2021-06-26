@@ -1,5 +1,5 @@
 
-		var margin=30, width = 1000, height=500, gMargin = 15;
+		var margin=30, width = 800, height=600, gMargin = 15;
 		var lines, tScale;
 		const lValues = [];
 		const rValues = [];
@@ -29,7 +29,7 @@
 		
 			scaleX = d3.scaleLinear()
 				.domain(points)
-				.range([300+margin, width-margin]);
+				.range([300+margin, width-(margin*2)]);
 
 			scaleY = d3.scaleLinear()
 				.domain(values)
@@ -155,4 +155,3 @@
 			}
 		}
 
-        
