@@ -48,6 +48,9 @@
 </head>
 <body>
 
+
+	<input type="file" id="uploader">
+
 	<div id="chart"></div>
 	<div id="tooltip"></div>
 
@@ -58,12 +61,24 @@
 		const rValues = [];
 
 
-		var svg = d3.select('#chart')
+		//d3.csv('t1t2-skew.csv').then(function(data){
+		function load_dataset(csv) {
+			data = d3.csvParse(csv)
+
+			// Remove any old chart before loading a new one
+			d3.selectAll('svg').remove();
+
+			display(data);
+		}
+
+		function display(data) { 
+
+			var svg = d3.select('#chart')
 				.append('svg')
 				.attr('width', width + 'px')
 				.attr('height', height + 'px');
 
-		d3.csv('t1t2-skew.csv').then(function(data){
+			
 			console.log("Title");
 			//console.log(data);
 
@@ -120,8 +135,7 @@
 	                .attr('transform', 'translate(200,0)');
 
 				update();
-		});
-
+		}
 
 		function update() {
 			lines.transition()
@@ -135,6 +149,27 @@
 				})
 		}
 
+		function upload_button(el, callback){
+			var uploader = document.getElementById(el);
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				var contents = e.target.result;
+				callback(contents);
+			}
+
+			uploader.addEventListener("change", handleFiles, false);
+
+			function handleFiles() {
+				var file = this.files[0];
+				reader.readAsText(file);
+			}
+		}
+
+	</script>
+
+	<script>
+		upload_button("uploader", load_dataset);
 	</script>
 </body>
 </html>
