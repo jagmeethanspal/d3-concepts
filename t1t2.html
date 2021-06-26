@@ -69,6 +69,51 @@
 			d3.selectAll('svg').remove();
 
 			display(data);
+			displayOffset(data);
+		}
+
+		function displayOffset(data) {
+			var offset = delta(data);
+
+			points = d3.extent(offset,function(d){
+				return parseFloat(d.step);
+			});
+		
+			values = d3.extent(offset,function(d){
+				return parseFloat(d.value);
+			});
+		
+			scaleX = d3.scaleLinear()
+				.domain(points)
+				.range([300+margin, width-margin]);
+
+			scaleY = d3.scaleLinear()
+				.domain(values)
+				.range([height-margin, 10*margin]);
+
+			var svg = d3.select('svg');
+
+			offset.forEach(element => {
+				svg.append('line')
+					.attr('class', 'dot')
+					.style('opacity', 1)
+					.attr('x1', scaleX(element.step))
+					.attr('y1', (height-margin))
+					.attr('x2', scaleX(element.step))
+					.attr('y2', scaleY(element.value));
+
+			});
+		}
+
+		function delta(data) {
+
+			var d = [];
+			var i=0;
+			data.forEach(element => {
+				d.push({step: i++, value: element.t2 - element.t1});
+			});
+
+			return (d);
 		}
 
 		function display(data) { 
