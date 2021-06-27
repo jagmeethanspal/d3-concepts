@@ -37,6 +37,9 @@
 				.range([offsetChartHeight-(margin*2), margin]);
 
             var svg = d3.select('#chartOffset')
+				.style('opacity', 1)
+				.style('width', offsetChartWidth + 'px')
+				.style('height', offsetChartHeight + 'px')
 				.append('svg')
 				.attr('width', offsetChartWidth + 'px')
 				.attr('height', offsetChartHeight + 'px');
@@ -67,6 +70,9 @@
 		function display(data) { 
 
 			var svg = d3.select('#chart')
+				.style('opacity', 1)
+				.style('width', width + 'px')
+				.style('height', height + 'px')
 				.append('svg')
 				.attr('width', width + 'px')
 				.attr('height', height + 'px');

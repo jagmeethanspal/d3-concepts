@@ -5,18 +5,16 @@
 		}
 		#chart {
 			background-color: #bbb;
-			width: 800px;
-			height: 600px;
 			margin: 50px auto;
 			border: solid 1px #000;
+			opacity: 0;
 		}
 
 		#chartOffset {
 			background-color: #bbb;
-			width: 800px;
-			height: 400px;
 			margin: 50px auto;
 			border: solid 1px #000;
+			opacity: 0;
 		}
 		svg{
 			background-color: #FFF;
