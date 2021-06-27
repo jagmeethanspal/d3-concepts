@@ -20,7 +20,7 @@
 			background-color: #FFF;
 		}
 		.dot{
-			stroke: #000;
+			stroke: rgb(61, 30, 196);
 			stroke-width: 1px;
 		}
 		.axis line, .axis path{

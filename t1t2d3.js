@@ -1,5 +1,5 @@
 
-		var margin=30, width = 800, height=600, gMargin = 15;
+		var margin=30, width = 800, height=600, gMargin = 100;
 		var offsetChartWidth = 800, offsetChartHeight=400;
 		var lines, tScale;
 		const lValues = [];
@@ -30,11 +30,11 @@
 		
 			scaleX = d3.scaleLinear()
 				.domain(points)
-				.range([margin, offsetChartWidth-(margin*2)]);
+				.range([gMargin, offsetChartWidth-margin]);
 
 			scaleY = d3.scaleLinear()
 				.domain(values)
-				.range([offsetChartHeight-(margin*2), margin]);
+				.range([offsetChartHeight-margin, margin]);
 
             var svg = d3.select('#chartOffset')
 				.style('opacity', 1)
@@ -44,16 +44,34 @@
 				.attr('width', offsetChartWidth + 'px')
 				.attr('height', offsetChartHeight + 'px');
 
+			const yValues =[];
 			offset.forEach(element => {
 				svg.append('line')
 					.attr('class', 'dot')
-					.style('opacity', 1)
+					.style('opacity', 0.5)
 					.attr('x1', scaleX(element.step))
 					.attr('y1', (offsetChartHeight-margin))
 					.attr('x2', scaleX(element.step))
 					.attr('y2', scaleY(element.value));
 
+				yValues.push(element.value);
 			});
+
+			yAxis = d3.axisLeft(scaleY).ticks(10);
+			yAxisG = svg.append('g')
+				.attr('id', 'yAxis')
+				.attr('class', 'axis');
+
+			yAxisG.call(yAxis)
+				.attr('transform', 'translate(' + (gMargin) + ',0)');
+
+			xAxis = d3.axisBottom(scaleX).ticks(10);
+			xAxisG = svg.append('g')
+				.attr('id', 'xAxis')
+				.attr('class', 'axis');
+
+			xAxisG.call(xAxis)
+				.attr('transform', 'translate(0,' + (offsetChartHeight-margin) + ')');
 		}
 
 		function delta(data) {
