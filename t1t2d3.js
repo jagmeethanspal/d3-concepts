@@ -44,7 +44,6 @@
 				.attr('width', offsetChartWidth + 'px')
 				.attr('height', offsetChartHeight + 'px');
 
-			const yValues =[];
 			offset.forEach(element => {
 				svg.append('line')
 					.attr('class', 'dot')
@@ -54,7 +53,6 @@
 					.attr('x2', scaleX(element.step))
 					.attr('y2', scaleY(element.value));
 
-				yValues.push(element.value);
 			});
 
 			yAxis = d3.axisLeft(scaleY).ticks(10);
@@ -79,8 +77,13 @@
 			var d = [];
 			var i=0;
 			data.forEach(element => {
-				d.push({step: i++, value: element.t2 - element.t1});
+				let t1 = ((element.t1).split(".")[1]);
+				let t2 = ((element.t2).split(".")[1]);
+			    let result = t2 - t1;
+				d.push({step: i++, value: result});
 			});
+
+			console.log(d);
 
 			return (d);
 		}
@@ -96,7 +99,7 @@
 				.attr('height', height + 'px');
 
 			
-			console.log("Title");
+			//console.log("10 Float");
 			//console.log(data);
 
 			t1MinMax = d3.extent(data,function(d){
@@ -133,8 +136,8 @@
 					return tScale(d.t1);
 				});
 
-				//lAxis = d3.axisLeft(tScale).ticks(10, "+f");
-				lAxis = d3.axisLeft(tScale).tickValues(lValues);
+				lAxis = d3.axisLeft(tScale).ticks(10, "+f");
+				//lAxis = d3.axisLeft(tScale).tickValues(lValues);
 				lAxisG = svg.append('g')
 	                .attr('id', 'lAxis')
 	                .attr('class', 'axis');
@@ -143,7 +146,7 @@
 	                .attr('transform', 'translate(' + (margin*3) + ',0)');
 
 
-				rAxis = d3.axisRight(tScale).tickValues(rValues);
+				rAxis = d3.axisRight(tScale).ticks(10, "+f");
 				rAxisG = svg.append('g')
 	                .attr('id', 'rAxis')
 	                .attr('class', 'axis');
