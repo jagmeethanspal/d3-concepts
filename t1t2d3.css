@@ -37,8 +37,15 @@
 			opacity: 0;
 		}
 		.axislabel{
-			fill: #bbb;
+			fill: #aaa;
 			font: sans-serif;
 			font-size: 10px;
+		}
+
+		.watermark{
+			fill: #bbb;
+			font: sans-serif;
+			font-size: 80px;
+			opacity: 0.1;
 		}
 	

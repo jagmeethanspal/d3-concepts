@@ -29,11 +29,11 @@
 			});
 		
 			scaleX = d3.scaleLinear()
-				.domain(points)
+				.domain([points[0]*95/100, points[1]*105/100])
 				.range([gMargin, offsetChartWidth-margin]);
 
 			scaleY = d3.scaleLinear()
-				.domain(values)
+				.domain([values[0]*95/100, values[1]*105/100])
 				.range([offsetChartHeight-margin, margin]);
 
             var svg = d3.select('#chartOffset')
@@ -70,6 +70,32 @@
 
 			xAxisG.call(xAxis)
 				.attr('transform', 'translate(0,' + (offsetChartHeight-margin) + ')');
+
+			addWaterMark('#chartOffset', offsetChartWidth, offsetChartHeight);
+		}
+
+		function addWaterMark(chart, width, height) {
+
+ 			var chart = d3.select(chart);
+			var svg = chart.selectAll('svg');
+
+			var h = Math.random()*100;
+			while (h<height) {
+				var w = Math.random()*100;
+				while (w < width) {
+					svg.append('text')
+		            	.attr('x', w)
+		            	.attr('y', h)
+		            	//.attr('text-anchor', 'middle')
+		            	.text('(c)AVChrono')
+		            	.attr('class', 'watermark');
+				
+					w += 600 + Math.random()*100;
+					console.log("w: " + w + " h:" + h);
+				}
+				h += 200 + Math.random()*100;
+			}
+
 		}
 
 		function delta(data) {
@@ -77,10 +103,15 @@
 			var d = [];
 			var i=0;
 			data.forEach(element => {
-				let t1 = ((element.t1).split(".")[1]);
-				let t2 = ((element.t2).split(".")[1]);
-			    let result = t2 - t1;
-				d.push({step: i++, value: result});
+				let t1 = (element.t1).split(".");
+				let t2 = (element.t2).split(".");
+				let result = 0;
+				if(t1[0] == t2[0]) {
+			    	result = t2[1] - t1[1];
+				} else {
+					result = (element.t2 - element.t1)*1000000000;
+				}
+				d.push({T2: element.t2, T1: element.t1, value: result, step: i++});
 			});
 
 			console.log(d);
@@ -155,6 +186,7 @@
 	                .attr('transform', 'translate(' + (width-(margin*3)) + ',0)');
 
 				update();
+				addWaterMark('#chart', width, height);
 		}
 
 		function update() {
