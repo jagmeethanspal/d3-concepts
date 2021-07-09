@@ -1,6 +1,6 @@
 
-		var margin=30, width = 800, height=600, gMargin = 100;
-		var offsetChartWidth = 800, offsetChartHeight=400;
+		var margin=30, width = 600, height=600, gMargin = 100;
+		var offsetChartWidth = 600, offsetChartHeight=300;
 		var lines, tScale;
 		const lValues = [];
 		const rValues = [];
