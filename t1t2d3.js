@@ -38,8 +38,8 @@
 
             var svg = d3.select('#chartOffset')
 				.style('opacity', 1)
-				.style('width', offsetChartWidth+1 + 'px')
-				.style('height', offsetChartHeight+1 + 'px')
+				.style('width', offsetChartWidth+2 + 'px')
+				.style('height', offsetChartHeight+2 + 'px')
 				.append('svg')
 				.attr('width', offsetChartWidth + 'px')
 				.attr('height', offsetChartHeight + 'px');
@@ -122,8 +122,8 @@
 
 			var svg = d3.select('#chart')
 				.style('opacity', 1)
-				.style('width', width + 'px')
-				.style('height', height + 'px')
+				.style('width', width+2 + 'px')
+				.style('height', height+2 + 'px')
 				.append('svg')
 				.attr('width', width + 'px')
 				.attr('height', height + 'px');
