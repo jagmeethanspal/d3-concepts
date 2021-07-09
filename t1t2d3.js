@@ -1,6 +1,6 @@
 
-		var margin=30, width = 600, height=600, gMargin = 100;
-		var offsetChartWidth = 600, offsetChartHeight=300;
+		var margin=30, width = 800, height=600, gMargin = 100;
+		var offsetChartWidth = 800, offsetChartHeight=300;
 		var lines, tScale;
 		const lValues = [];
 		const rValues = [];
@@ -38,8 +38,8 @@
 
             var svg = d3.select('#chartOffset')
 				.style('opacity', 1)
-				.style('width', offsetChartWidth + 'px')
-				.style('height', offsetChartHeight + 'px')
+				.style('width', offsetChartWidth+1 + 'px')
+				.style('height', offsetChartHeight+1 + 'px')
 				.append('svg')
 				.attr('width', offsetChartWidth + 'px')
 				.attr('height', offsetChartHeight + 'px');
@@ -91,7 +91,6 @@
 		            	.attr('class', 'watermark');
 				
 					w += 600 + Math.random()*100;
-					console.log("w: " + w + " h:" + h);
 				}
 				h += 200 + Math.random()*100;
 			}
