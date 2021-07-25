@@ -1,51 +1,50 @@
+body {
+    background-color: #ccc;
+    width: 100%;
+}
+#chart {
+    background-color: #bbb;
+    margin: 50px auto;
+    border: solid 1px #000;
+    opacity: 0;
+}
 
-		body {
-			background-color: #ccc;
-			width: 100%;
-		}
-		#chart {
-			background-color: #bbb;
-			margin: 50px auto;
-			border: solid 1px #000;
-			opacity: 0;
-		}
+#chartOffset {
+    background-color: #bbb;
+    margin: 50px auto;
+    border: solid 1px #000;
+    opacity: 0;
+}
+svg {
+    background-color: #fff;
+}
+.dot {
+    stroke: rgb(61, 30, 196);
+    stroke-width: 1px;
+}
+.axis line,
+.axis path {
+    stroke: #bbb;
+}
+.axis text {
+    fill: #bbb;
+}
+#tooltip {
+    position: absolute;
+    background-color: #fff;
+    padding: 20px;
+    border: solid 1px #000;
+    opacity: 0;
+}
+.axislabel {
+    fill: #aaa;
+    font: sans-serif;
+    font-size: 10px;
+}
 
-		#chartOffset {
-			background-color: #bbb;
-			margin: 50px auto;
-			border: solid 1px #000;
-			opacity: 0;
-		}
-		svg{
-			background-color: #FFF;
-		}
-		.dot{
-			stroke: rgb(61, 30, 196);
-			stroke-width: 1px;
-		}
-		.axis line, .axis path{
-			stroke: #bbb;
-		}
-		.axis text {
-			fill: #bbb;
-		}
-		#tooltip {
-			position: absolute;
-			background-color: #FFF;
-			padding: 20px;
-			border: solid 1px #000;
-			opacity: 0;
-		}
-		.axislabel{
-			fill: #aaa;
-			font: sans-serif;
-			font-size: 10px;
-		}
-
-		.watermark{
-			fill: #bbb;
-			font: sans-serif;
-			font-size: 80px;
-			opacity: 0.1;
-		}
-	
+.watermark {
+    fill: #bbb;
+    font: sans-serif;
+    font-size: 80px;
+    opacity: 0.1;
+}

@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>T1T2</title>
-	
-	<link rel="stylesheet" href="t1t2d3.css">
+    <head>
+        <meta charset="utf-8" />
+        <title>T1T2</title>
 
-	<script type="text/javascript" src="https://d3js.org/d3.v6.min.js"></script>
-</head>
-<body>
+        <link rel="stylesheet" href="t1t2d3.css" />
 
+        <script
+            type="text/javascript"
+            src="https://d3js.org/d3.v6.min.js"
+        ></script>
+    </head>
+    <body>
+        <input type="file" id="uploader" />
 
-	<input type="file" id="uploader">
+        <div id="chartOffset"></div>
+        <div id="chart"></div>
+        <div id="tooltip"></div>
 
-	<div id="chartOffset"></div>
-	<div id="chart"></div>
-	<div id="tooltip"></div>
+        <script type="text/javascript" src="t1t2d3.js"></script>
 
-	<script type="text/javascript" src="t1t2d3.js"></script>
-
-	<script>
-		upload_button("uploader", load_dataset);
-	</script>
-</body>
+        <script>
+            upload_button("uploader", load_dataset);
+        </script>
+    </body>
 </html>
